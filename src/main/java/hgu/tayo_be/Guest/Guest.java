@@ -1,4 +1,5 @@
 package hgu.tayo_be.Guest;
+
 import hgu.tayo_be.Ride.Ride;
 import hgu.tayo_be.User.User;
 import jakarta.persistence.*;
@@ -6,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "guests")
 @Data

@@ -16,4 +16,3 @@ public class UserDTO {
     private String bankAccount;
     private String carNum;
 }
-

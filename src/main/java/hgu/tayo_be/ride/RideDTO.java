@@ -1,4 +1,5 @@
 package hgu.tayo_be.Ride;
+
 import hgu.tayo_be.Guest.GuestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,4 +38,3 @@ public class RideDTO {
         private String carNum;
     }
 }
-

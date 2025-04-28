@@ -5,6 +5,5 @@ import lombok.Data;
 public class CreateGuestRequest {
 
     private Long userId;
-
     private Long rideId;
 }

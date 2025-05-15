@@ -11,7 +11,7 @@ public class UpdateRideRequest {
     private Ride.RideType type;
     private LocalDate startDay;
     private LocalDate endDay;
-    private LocalTime time;
+    private String departureTime;
 
     private List<String> stops;
 

@@ -11,7 +11,7 @@ public class CreateRideRequest {
     private Ride.RideType type;
     private LocalDate startDay;
     private LocalDate endDay;
-    private LocalTime time;
+    private String departureTime;
     private List<String> stops;
     private String announcement;
     private Integer price;

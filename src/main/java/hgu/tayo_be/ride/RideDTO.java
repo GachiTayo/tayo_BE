@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class RideDTO {
     private Ride.RideType type;
     private LocalDate startDay;
     private LocalDate endDay;
-    private LocalTime time;
+    private String departureTime;
     private List<String> stops;
     private String announcement;
     private Integer price;

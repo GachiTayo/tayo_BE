@@ -39,21 +39,21 @@ public class Ride {
     @Column(name = "end_day")
     private LocalDate endDay;
 
-    @Column(nullable = false)
-    private LocalTime time;
+    @Column(name = "departure_time")
+    private LocalTime departureTime;
 
     @ElementCollection
     @CollectionTable(name = "ride_stops", joinColumns = @JoinColumn(name = "ride_id"))
     @Column(name = "stop")
-    @OrderColumn(name = "stop_order")
-    private List<String> stops = new ArrayList<>(6);
+    private List<String> stops = new ArrayList<>();
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "announcement")
     private String announcement;
 
+    @Column(name = "price")
     private Integer price;
 
-    @Column(name = "guest_number")
+    @Column(name = "guest_number", nullable = false)
     private Integer guestNumber;
 
     @OneToMany(mappedBy = "ride", cascade = CascadeType.ALL, orphanRemoval = true)

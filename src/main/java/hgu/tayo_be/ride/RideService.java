@@ -1,4 +1,5 @@
 package hgu.tayo_be.Ride;
+
 import hgu.tayo_be.Guest.GuestDTO;
 import hgu.tayo_be.User.User;
 import hgu.tayo_be.User.UserRepository;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +21,7 @@ public class RideService {
 
     private final RideRepository rideRepository;
     private final UserRepository userRepository;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     @Transactional
     public RideDTO createRide(CreateRideRequest request) {
@@ -37,12 +41,21 @@ public class RideService {
                 .host(host)
                 .type(request.getType())
                 .startDay(request.getStartDay())
-                .time(request.getTime())
                 .stops(stops)
                 .announcement(request.getAnnouncement())
                 .price(request.getPrice())
                 .guestNumber(request.getGuestNumber())
                 .build();
+
+        // Parse the HH:MM string to LocalTime
+        if (request.getDepartureTime() != null && !request.getDepartureTime().isEmpty()) {
+            try {
+                LocalTime departureTime = LocalTime.parse(request.getDepartureTime(), TIME_FORMATTER);
+                ride.setDepartureTime(departureTime);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Invalid time format. Please use HH:mm format.");
+            }
+        }
 
         // Set endDay only for FIXED type
         if (request.getType() == Ride.RideType.FIXED) {
@@ -103,8 +116,13 @@ public class RideService {
             ride.setEndDay(null);
         }
 
-        if (request.getTime() != null) {
-            ride.setTime(request.getTime());
+        if (request.getDepartureTime() != null && !request.getDepartureTime().isEmpty()) {
+            try {
+                LocalTime departureTime = LocalTime.parse(request.getDepartureTime(), TIME_FORMATTER);
+                ride.setDepartureTime(departureTime);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Invalid time format. Please use HH:mm format.");
+            }
         }
 
         if (request.getStops() != null) {
@@ -149,13 +167,19 @@ public class RideService {
                 .carNum(host.getCarNum())
                 .build();
 
+        // Format LocalTime to HH:mm string for the DTO
+        String formattedTime = null;
+        if (ride.getDepartureTime() != null) {
+            formattedTime = ride.getDepartureTime().format(TIME_FORMATTER);
+        }
+
         return RideDTO.builder()
                 .rideId(ride.getRideId())
                 .host(hostDTO)
                 .type(ride.getType())
                 .startDay(ride.getStartDay())
                 .endDay(ride.getEndDay())
-                .time(ride.getTime())
+                .departureTime(formattedTime)
                 .stops(ride.getStops())
                 .announcement(ride.getAnnouncement())
                 .price(ride.getPrice())

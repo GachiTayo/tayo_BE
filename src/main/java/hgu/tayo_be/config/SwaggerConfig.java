@@ -20,8 +20,8 @@ public class SwaggerConfig {
 
     private Info apiInfo(){
         return new Info()
-                .title("파이팅팅티리링")
-                .description(" 할 수 있다 아자아자")
+                .title("Tayo BE")
+               // .description(" ㅋㅋ")
                 .version("1.0.0");
     }
 }

@@ -4,10 +4,11 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class CreateRideRequest {
-    private Long hostId;
+    private UUID hostId;
     private Ride.RideType type;
     private LocalDate startDay;
     private LocalDate endDay;

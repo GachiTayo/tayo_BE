@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/rides")
@@ -31,7 +32,7 @@ public class RideController {
 
     @Operation(summary = "Get rides by host ID", description = "Retrieves all rides hosted by a specific user.")
     @GetMapping("/host/{hostId}")
-    public ResponseEntity<List<RideDTO>> getRidesByHostId(@PathVariable Long hostId) {
+    public ResponseEntity<List<RideDTO>> getRidesByHostId(@PathVariable UUID hostId) {
         List<RideDTO> rides = rideService.getRidesByHostId(hostId);
         return ResponseEntity.ok(rides);
     }

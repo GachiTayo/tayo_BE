@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +73,7 @@ public class RideService {
         return mapToDTO(ride);
     }
 
-    public List<RideDTO> getRidesByHostId(Long hostId) {
+    public List<RideDTO> getRidesByHostId(UUID hostId) {
         User host = userRepository.findById(hostId)
                 .orElseThrow(() -> new ResourceNotFoundException("Host not found with id: " + hostId));
 

@@ -11,6 +11,7 @@ import hgu.tayo_be.exception.ResourceNotFoundException;
 import hgu.tayo_be.exception.AlreadyExistsException;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,7 +51,7 @@ public class GuestService {
         return mapToDTO(savedGuest);
     }
 
-    public GuestDTO getGuestById(Long guestId) {
+    public GuestDTO getGuestById(UUID guestId) {
         Guest guest = guestRepository.findById(guestId)
                 .orElseThrow(() -> new ResourceNotFoundException("Guest not found with id: " + guestId));
         return mapToDTO(guest);
@@ -66,7 +67,7 @@ public class GuestService {
                 .collect(Collectors.toList());
     }
 
-    public List<GuestDTO> getGuestsByUser(Long userId) {
+    public List<GuestDTO> getGuestsByUser(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
@@ -77,7 +78,7 @@ public class GuestService {
     }
 
     @Transactional
-    public GuestDTO updatePaymentStatus(Long guestId, UpdatePaymentStatusRequest request) {
+    public GuestDTO updatePaymentStatus(UUID guestId, UpdatePaymentStatusRequest request) {
         Guest guest = guestRepository.findById(guestId)
                 .orElseThrow(() -> new ResourceNotFoundException("Guest not found with id: " + guestId));
 
@@ -87,7 +88,7 @@ public class GuestService {
     }
 
     @Transactional
-    public void removeGuestFromRide(Long guestId) {
+    public void removeGuestFromRide(UUID guestId) {
         if (!guestRepository.existsById(guestId)) {
             throw new ResourceNotFoundException("Guest not found with id: " + guestId);
         }

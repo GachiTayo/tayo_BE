@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/guests")
@@ -23,7 +24,7 @@ public class GuestController {
 
     @Operation(summary = "Get guest by ID", description = "Retrieves the details of a guest by their ID.")
     @GetMapping("/{guestId}")
-    public ResponseEntity<GuestDTO> getGuestById(@PathVariable Long guestId) {
+    public ResponseEntity<GuestDTO> getGuestById(@PathVariable UUID guestId) {
         return ResponseEntity.ok(guestService.getGuestById(guestId));
     }
 
@@ -35,21 +36,21 @@ public class GuestController {
 
     @Operation(summary = "Get guests by user ID", description = "Retrieves a list of all rides a user is participating in as a guest.")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<GuestDTO>> getGuestsByUser(@PathVariable Long userId) {
+    public ResponseEntity<List<GuestDTO>> getGuestsByUser(@PathVariable UUID userId) {
         return ResponseEntity.ok(guestService.getGuestsByUser(userId));
     }
 
     @Operation(summary = "Update guest payment status", description = "Updates the payment status of a guest for a ride.")
     @PatchMapping("/{guestId}/payment-status")
     public ResponseEntity<GuestDTO> updatePaymentStatus(
-            @PathVariable Long guestId,
+            @PathVariable UUID guestId,
             @RequestBody UpdatePaymentStatusRequest request) {
         return ResponseEntity.ok(guestService.updatePaymentStatus(guestId, request));
     }
 
     @Operation(summary = "Remove guest from ride", description = "Removes a guest from a ride by their guest ID.")
     @DeleteMapping("/{guestId}")
-    public ResponseEntity<Void> removeGuestFromRide(@PathVariable Long guestId) {
+    public ResponseEntity<Void> removeGuestFromRide(@PathVariable UUID guestId) {
         guestService.removeGuestFromRide(guestId);
         return ResponseEntity.noContent().build();
     }

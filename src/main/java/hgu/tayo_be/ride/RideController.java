@@ -46,9 +46,8 @@ public class RideController {
 
     @Operation(summary = "Get upcoming rides by type", description = "Retrieves upcoming rides filtered by ride type.")
     @GetMapping("/upcoming/type/{type}")
-    public ResponseEntity<List<RideDTO>> getUpcomingRidesByType(@PathVariable Ride.RideType type) {
-        List<RideDTO> rides = rideService.getUpcomingRidesByType(type);
-        return ResponseEntity.ok(rides);
+    public List<RideDTO> getUpcomingRidesByType(@PathVariable Ride.RideType type) {
+        return rideService.getUpcomingRidesByType(type);
     }
 
     @Operation(summary = "Update a ride", description = "Updates the details of an existing ride by its ID.")

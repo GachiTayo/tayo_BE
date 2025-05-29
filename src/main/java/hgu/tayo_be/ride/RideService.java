@@ -185,14 +185,17 @@ public class RideService {
                 .announcement(ride.getAnnouncement())
                 .price(ride.getPrice())
                 .guestNumber(ride.getGuestNumber())
-                .guests(ride.getGuests().stream()
-                        .map(guest -> GuestDTO.builder()
-                                .guestId(guest.getGuestId())
-                                .userId(guest.getUser().getUserId())
-                                .name(guest.getUser().getName())
-                                .paymentStatus(guest.getPaymentStatus())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
+
+                .guests(
+                        ride.getGuests() == null ? new ArrayList<>() :
+                                ride.getGuests().stream()
+                                        .map(guest -> GuestDTO.builder()
+                                                .guestId(guest.getGuestId())
+                                                .userId(guest.getUser().getUserId())
+                                                .name(guest.getUser().getName())
+                                                .paymentStatus(guest.getPaymentStatus())
+                                                .build())
+                                        .collect(Collectors.toList())
+                ).build();
     }
 }
